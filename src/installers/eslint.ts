@@ -59,9 +59,7 @@ export const dynamicEslintInstaller: Installer = ({ projectDir, packages }) => {
   });
 
   // eslint
-  const eslintConfigSrc = path.join(
-    extrasDir
-  );
+  const eslintConfigSrc = path.join(extrasDir);
   const eslintConfigDest = path.join(projectDir, "eslint.config.js");
 
   fs.copySync(eslintConfigSrc, eslintConfigDest);
