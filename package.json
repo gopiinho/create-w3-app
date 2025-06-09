@@ -1,0 +1,63 @@
+{
+  "name": "create-web3-kit",
+  "version": "0.1.0",
+  "description": "Create ethereum dApps with web3-kit stack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gopiinho/create-web3-kit.git"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "bin": {
+    "create-web3-kit": "./dist/index.js"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "build": "tsup",
+    "dev": "tsup --watch --config tsup.config.ts",
+    "start": "node dist/index.js",
+    "lint": "eslint .",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@clack/core": "^0.3.4",
+    "@clack/prompts": "^0.6.3",
+    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
+    "chalk": "5.2.0",
+    "commander": "^10.0.1",
+    "eslint-plugin-import-x": "^4.15.1",
+    "execa": "^7.2.0",
+    "fs-extra": "^11.2.0",
+    "gradient-string": "^2.0.2",
+    "ora": "6.3.1",
+    "sort-package-json": "^2.10.0",
+    "typescript-eslint": "^8.33.1"
+  },
+  "devDependencies": {
+    "@t3-oss/env-nextjs": "^0.12.0",
+    "@tailwindcss/postcss": "^4.0.15",
+    "@tanstack/react-query": "^5.69.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/gradient-string": "^1.1.6",
+    "@types/node": "^20.14.10",
+    "next": "^15.2.3",
+    "next-auth": "^4.24.7",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@privy-io/react-auth": "^1.0.0",
+    "@rainbow-me/rainbowkit": "^1.0.0",
+    "wagmi": "^1.4.13",
+    "viem": "^1.19.1",
+    "superjson": "^2.2.1",
+    "tailwindcss": "^4.0.15",
+    "tsup": "^6.7.0",
+    "type-fest": "^3.13.1",
+    "typescript": "^5.8.2"
+  }
+}
