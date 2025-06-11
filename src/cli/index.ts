@@ -140,157 +140,160 @@ export const runCli = async (): Promise<CliResults> => {
     if (cliResults.flags.privy) cliResults.packages.push("privy");
     if (cliResults.flags.rainbow) cliResults.packages.push("rainbow");
     if (cliResults.flags.eslint) cliResults.packages.push("eslint");
-    if (cliResults.flags.default) {
-      return cliResults;
-    }
 
-    // Explained below why this is in a try/catch block
-    try {
-      if (process.env.TERM_PROGRAM?.toLowerCase().includes("mintty")) {
-        logger.warn(`  WARNING: It looks like you are using MinTTY, which is non-interactive. This is most likely because you are
+    return cliResults;
+  }
+
+  if (cliResults.flags.default) {
+    return cliResults;
+  }
+
+  // Explained below why this is in a try/catch block
+  try {
+    if (process.env.TERM_PROGRAM?.toLowerCase().includes("mintty")) {
+      logger.warn(`  WARNING: It looks like you are using MinTTY, which is non-interactive. This is most likely because you are
     using Git Bash. If that's that case, please use Git Bash from another terminal, such as Windows Terminal. Alternatively, you
     can provide the arguments from the CLI directly to skip the prompts.`);
 
-        throw new IsTTYError("Non-interactive environment");
-      }
+      throw new IsTTYError("Non-interactive environment");
+    }
 
-      // if --CI flag is set, we are running in CI mode and should not prompt the user
+    // if --CI flag is set, we are running in CI mode and should not prompt the user
 
-      const pkgManager = getUserPkgManager();
+    const pkgManager = getUserPkgManager();
 
-      const project = await p.group(
-        {
-          ...(!cliProvidedName && {
-            name: () =>
-              p.text({
-                message: "What will your project be called?",
-                defaultValue: cliProvidedName,
-                validate: validateAppName,
-              }),
-          }),
-          language: () => {
-            return p.select({
-              message: "Will you be using TypeScript or JavaScript?",
-              options: [
-                { value: "typescript", label: "TypeScript" },
-                { value: "javascript", label: "JavaScript" },
-              ],
-              initialValue: "typescript",
-            });
-          },
-          _: ({ results }) =>
-            results.language === "javascript"
-              ? p.note(
-                  chalk.redBright("Wrong answer, using TypeScript instead")
-                )
-              : undefined,
-          styling: () => {
-            return p.confirm({
-              message: "Will you be using Tailwind CSS for styling?",
-            });
-          },
-          wallet: () => {
-            return p.select({
-              message:
-                "Which wallet authentication solution would you like to use?",
-              options: [
-                { value: "none", label: "None" },
-                { value: "privy", label: "Privy" },
-                { value: "rainbow", label: "Rainbow Kit" },
-              ],
-              initialValue: "privy",
-            });
-          },
-          appRouter: () => {
-            return p.confirm({
-              message: "Would you like to use Next.js App Router?",
-              initialValue: true,
-            });
-          },
-          linter: () => {
-            return p.select({
-              message:
-                "Would you like to use ESLint and Prettier or Biome for linting and formatting?",
-              options: [
-                { value: "eslint", label: "ESLint/Prettier" },
-                { value: "biome", label: "Biome" },
-              ],
-              initialValue: "eslint",
-            });
-          },
-          ...(!cliResults.flags.noGit && {
-            git: () => {
-              return p.confirm({
-                message:
-                  "Should we initialize a Git repository and stage the changes?",
-                initialValue: !defaultOptions.flags.noGit,
-              });
-            },
-          }),
-          ...(!cliResults.flags.noInstall && {
-            install: () => {
-              return p.confirm({
-                message:
-                  `Should we run '${pkgManager}` +
-                  (pkgManager === "yarn" ? `'?` : ` install' for you?`),
-                initialValue: !defaultOptions.flags.noInstall,
-              });
-            },
-          }),
-          importAlias: () => {
-            return p.text({
-              message: "What import alias would you like to use?",
-              defaultValue: defaultOptions.flags.importAlias,
-              placeholder: defaultOptions.flags.importAlias,
-              validate: validateImportAlias,
-            });
-          },
+    const project = await p.group(
+      {
+        ...(!cliProvidedName && {
+          name: () =>
+            p.text({
+              message: "What will your project be called?",
+              defaultValue: cliProvidedName,
+              validate: validateAppName,
+            }),
+        }),
+        language: () => {
+          return p.select({
+            message: "Will you be using TypeScript or JavaScript?",
+            options: [
+              { value: "typescript", label: "TypeScript" },
+              { value: "javascript", label: "JavaScript" },
+            ],
+            initialValue: "typescript",
+          });
         },
-        {
-          onCancel() {
-            process.exit(0);
+        _: ({ results }) =>
+          results.language === "javascript"
+            ? p.note(chalk.redBright("Wrong answer, using TypeScript instead"))
+            : undefined,
+        styling: () => {
+          return p.confirm({
+            message: "Will you be using Tailwind CSS for styling?",
+          });
+        },
+        wallet: () => {
+          return p.select({
+            message:
+              "Which wallet authentication solution would you like to use?",
+            options: [
+              { value: "none", label: "None" },
+              { value: "privy", label: "Privy" },
+              { value: "rainbow", label: "Rainbow Kit" },
+            ],
+            initialValue: "privy",
+          });
+        },
+        appRouter: () => {
+          return p.confirm({
+            message: "Would you like to use Next.js App Router?",
+            initialValue: true,
+          });
+        },
+        linter: () => {
+          return p.select({
+            message:
+              "Would you like to use ESLint and Prettier for linting and formatting?",
+            options: [{ value: "eslint", label: "ESLint/Prettier" }],
+            initialValue: "eslint",
+          });
+        },
+        ...(!cliResults.flags.noGit && {
+          git: () => {
+            return p.confirm({
+              message:
+                "Should we initialize a Git repository and stage the changes?",
+              initialValue: !defaultOptions.flags.noGit,
+            });
           },
-        }
-      );
-      const packages: AvailablePackages[] = [];
-      if (project.styling) packages.push("tailwind");
-      if (project.wallet === "privy") packages.push("privy");
-      if (project.wallet === "rainbow") packages.push("rainbow");
-      if (project.appRouter) cliResults.flags.appRouter = project.appRouter;
-      if (project.linter === "eslint") packages.push("eslint");
-      if (project.git !== undefined) cliResults.flags.noGit = !project.git;
-      if (project.install !== undefined)
-        cliResults.flags.noInstall = !project.install;
-      if (project.importAlias)
-        cliResults.flags.importAlias = project.importAlias;
+        }),
+        ...(!cliResults.flags.noInstall && {
+          install: () => {
+            return p.confirm({
+              message:
+                `Should we run '${pkgManager}` +
+                (pkgManager === "yarn" ? `'?` : ` install' for you?`),
+              initialValue: !defaultOptions.flags.noInstall,
+            });
+          },
+        }),
+        importAlias: () => {
+          return p.text({
+            message: "What import alias would you like to use?",
+            defaultValue: defaultOptions.flags.importAlias,
+            placeholder: defaultOptions.flags.importAlias,
+            validate: validateImportAlias,
+          });
+        },
+      },
+      {
+        onCancel() {
+          process.exit(1);
+        },
+      }
+    );
 
-      return cliResults;
-    } catch (err) {
-      // If the user is not calling create-web3-kit from an interactive terminal, inquirer will throw an IsTTYError
-      // If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default web3-kit
-      if (err instanceof IsTTYError) {
-        logger.warn(`
+    const packages: AvailablePackages[] = [];
+    if (project.styling) packages.push("tailwind");
+    if (project.wallet === "privy") packages.push("privy");
+    if (project.wallet === "rainbow") packages.push("rainbow");
+    if (project.appRouter) cliResults.flags.appRouter = project.appRouter;
+    if (project.linter === "eslint") packages.push("eslint");
+    if (project.git !== undefined) cliResults.flags.noGit = !project.git;
+
+    return {
+      appName: project.name ?? cliResults.appName,
+      packages,
+      flags: {
+        ...cliResults.flags,
+        appRouter: project.appRouter ?? cliResults.flags.appRouter,
+        noGit: !project.git || cliResults.flags.noGit,
+        noInstall: !project.install || cliResults.flags.noInstall,
+        importAlias: project.importAlias ?? cliResults.flags.importAlias,
+      },
+    };
+  } catch (err) {
+    // If the user is not calling create-web3-kit from an interactive terminal, inquirer will throw an IsTTYError
+    // If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default web3-kit
+    if (err instanceof IsTTYError) {
+      logger.warn(`
     ${CREATE_WEB3_KIT} needs an interactive terminal to provide options`);
 
-        const shouldContinue = await p.confirm({
-          message: `Continue scaffolding a default web3-kit app?`,
-          initialValue: true,
-        });
+      const shouldContinue = await p.confirm({
+        message: `Continue scaffolding a default web3-kit app?`,
+        initialValue: true,
+      });
 
-        if (!shouldContinue) {
-          logger.info("Exiting...");
-          process.exit(0);
-        }
-
-        logger.info(
-          `Bootstrapping a default web3-kit app in ./${cliResults.appName}`
-        );
-        return cliResults;
-      } else {
-        throw err;
+      if (!shouldContinue) {
+        logger.info("Exiting...");
+        process.exit(0);
       }
+
+      logger.info(
+        `Bootstrapping a default web3-kit app in ./${cliResults.appName}`
+      );
+    } else {
+      throw err;
     }
   }
-
   return cliResults;
 };
