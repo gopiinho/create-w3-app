@@ -22,7 +22,8 @@
     "start": "node dist/index.js",
     "clean": "rm -rf dist node_modules",
     "lint": "eslint .",
-    "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write"
+    "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write",
+    "release": "changeset version"
   },
   "dependencies": {
     "@clack/core": "^0.3.4",
@@ -36,9 +37,15 @@
     "gradient-string": "^2.0.2",
     "ora": "6.3.1",
     "sort-package-json": "^2.10.0",
-    "typescript-eslint": "^8.33.1"
+    "typescript-eslint": "^8.33.1",
+    "pub:beta": "yarn build && npm publish --tag beta",
+    "pub:next": "yarn build && npm publish --tag next",
+    "pub:release": "yarn build && npm publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.4",
+    "@privy-io/react-auth": "^1.0.0",
+    "@rainbow-me/rainbowkit": "^1.0.0",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tailwindcss/postcss": "^4.0.15",
     "@tanstack/react-query": "^5.69.0",
@@ -51,14 +58,12 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@privy-io/react-auth": "^1.0.0",
-    "@rainbow-me/rainbowkit": "^1.0.0",
-    "wagmi": "^1.4.13",
-    "viem": "^1.19.1",
     "superjson": "^2.2.1",
     "tailwindcss": "^4.0.15",
     "tsup": "^6.7.0",
     "type-fest": "^3.13.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "viem": "^1.19.1",
+    "wagmi": "^1.4.13"
   }
 }
