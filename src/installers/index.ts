@@ -1,14 +1,16 @@
+import { privyInstaller } from "~/installers/privy.js";
+import { rainbowInstaller } from "~/installers/rainbow.js";
 import { tailwindInstaller } from "~/installers/tailwind.js";
 import { type PackageManager } from "~/utils/getUserPkgManager.js";
 import { envVariablesInstaller } from "./envVars.js";
 import { dynamicEslintInstaller } from "./eslint.js";
-import { walletInstaller } from "./wallet.js";
 
 // Turning this into a const allows the list to be iterated over for programmatically creating prompt options
 // Should increase extensibility in the future
 export const availablePackages = [
   "tailwind",
-  "wallet",
+  "privy",
+  "rainbow",
   "envVariables",
   "eslint",
 ] as const;
@@ -26,26 +28,13 @@ export interface InstallerOptions {
 
 export type Installer = (opts: InstallerOptions) => void;
 
-export type PkgInstallerMap = {
-  tailwind: {
+export type PkgInstallerMap = Record<
+  AvailablePackages,
+  {
     inUse: boolean;
     installer: Installer;
-  };
-  wallet: {
-    inUse: boolean;
-    type: "privy" | "rainbow" | "none";
-    installer: Installer;
-  };
-  envVariables: {
-    inUse: boolean;
-    installer: Installer;
-  };
-  eslint: {
-    inUse: boolean;
-    installer: Installer;
-  };
-};
-
+  }
+>;
 export const buildPkgInstallerMap = (
   packages: AvailablePackages[]
 ): PkgInstallerMap => ({
@@ -53,10 +42,13 @@ export const buildPkgInstallerMap = (
     inUse: packages.includes("tailwind"),
     installer: tailwindInstaller,
   },
-  wallet: {
-    type: "none",
-    inUse: packages.includes("wallet"),
-    installer: walletInstaller,
+  privy: {
+    inUse: packages.includes("privy"),
+    installer: privyInstaller,
+  },
+  rainbow: {
+    inUse: packages.includes("rainbow"),
+    installer: rainbowInstaller,
   },
   envVariables: {
     inUse: true,

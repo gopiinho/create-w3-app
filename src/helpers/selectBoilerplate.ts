@@ -15,8 +15,8 @@ export const selectAppFile = ({
   const appFileDir = path.join(PKG_ROOT, "template/extras/src/pages/_app");
 
   const usingTw = packages.tailwind.inUse;
-  const usingPrivy = packages.wallet.type === "privy";
-  const usingRainbow = packages.wallet.type === "rainbow";
+  const usingPrivy = packages.privy.inUse;
+  const usingRainbow = packages.rainbow.inUse;
 
   let appFile = "base.tsx";
   if (usingPrivy && usingTw) {
@@ -27,6 +27,8 @@ export const selectAppFile = ({
     appFile = "with-rbow-tw.tsx";
   } else if (usingRainbow && !usingTw) {
     appFile = "with-rbow.tsx";
+  } else if (usingTw && !usingPrivy && !usingRainbow) {
+    appFile = "with-tw.tsx";
   }
 
   const appSrc = path.join(appFileDir, appFile);
@@ -42,8 +44,8 @@ export const selectLayoutFile = ({
   const layoutFileDir = path.join(PKG_ROOT, "template/extras/src/app/layout");
 
   const usingTw = packages.tailwind.inUse;
-  const usingPrivy = packages.wallet.type === "privy";
-  const usingRainbow = packages.wallet.type === "rainbow";
+  const usingPrivy = packages.privy.inUse;
+  const usingRainbow = packages.rainbow.inUse;
 
   let layoutFile = "base.tsx";
   if (usingPrivy && usingTw) {
@@ -54,6 +56,8 @@ export const selectLayoutFile = ({
     layoutFile = "with-rbow-tw.tsx";
   } else if (usingRainbow && !usingTw) {
     layoutFile = "with-rbow.tsx";
+  } else if (usingTw && !usingPrivy && !usingRainbow) {
+    layoutFile = "with-tw.tsx";
   }
 
   const appSrc = path.join(layoutFileDir, layoutFile);
@@ -69,8 +73,8 @@ export const selectIndexFile = ({
   const indexFileDir = path.join(PKG_ROOT, "template/extras/src/pages/index");
 
   const usingTw = packages.tailwind.inUse;
-  const usingPrivy = packages.wallet.type === "privy";
-  const usingRainbow = packages.wallet.type === "rainbow";
+  const usingPrivy = packages.privy.inUse;
+  const usingRainbow = packages.rainbow.inUse;
 
   let indexFile = "base.tsx";
   if (usingPrivy && usingTw) {
@@ -81,6 +85,8 @@ export const selectIndexFile = ({
     indexFile = "with-rbow-tw.tsx";
   } else if (usingRainbow && !usingTw) {
     indexFile = "with-rbow.tsx";
+  } else if (usingTw && !usingPrivy && !usingRainbow) {
+    indexFile = "with-tw.tsx";
   }
 
   const indexSrc = path.join(indexFileDir, indexFile);
@@ -96,8 +102,8 @@ export const selectPageFile = ({
   const indexFileDir = path.join(PKG_ROOT, "template/extras/src/app/page");
 
   const usingTw = packages.tailwind.inUse;
-  const usingPrivy = packages.wallet.type === "privy";
-  const usingRainbow = packages.wallet.type === "rainbow";
+  const usingPrivy = packages.privy.inUse;
+  const usingRainbow = packages.rainbow.inUse;
 
   let indexFile = "base.tsx";
   if (usingPrivy && usingTw) {
@@ -108,6 +114,8 @@ export const selectPageFile = ({
     indexFile = "with-rbow-tw.tsx";
   } else if (usingRainbow && !usingTw) {
     indexFile = "with-rbow.tsx";
+  } else if (usingTw && !usingPrivy && !usingRainbow) {
+    indexFile = "with-tw.tsx";
   }
 
   const indexSrc = path.join(indexFileDir, indexFile);

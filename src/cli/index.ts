@@ -25,6 +25,10 @@ interface CliFlags {
   appRouter: boolean;
   /** @internal Used in CI */
   eslint: boolean;
+  /** Wallet authentication solution */
+  privy: boolean;
+  /** Wallet authentication solution */
+  rainbow: boolean;
 }
 
 interface CliResults {
@@ -35,7 +39,7 @@ interface CliResults {
 
 const defaultOptions: CliResults = {
   appName: DEFAULT_APP_NAME,
-  packages: ["tailwind", "eslint"],
+  packages: ["tailwind", "privy", "eslint"],
   flags: {
     noGit: false,
     noInstall: false,
@@ -45,6 +49,8 @@ const defaultOptions: CliResults = {
     importAlias: "~/",
     appRouter: false,
     eslint: false,
+    privy: false,
+    rainbow: false,
   },
 };
 
@@ -131,6 +137,8 @@ export const runCli = async (): Promise<CliResults> => {
   if (cliResults.flags.CI) {
     cliResults.packages = [];
     if (cliResults.flags.tailwind) cliResults.packages.push("tailwind");
+    if (cliResults.flags.privy) cliResults.packages.push("privy");
+    if (cliResults.flags.rainbow) cliResults.packages.push("rainbow");
     if (cliResults.flags.eslint) cliResults.packages.push("eslint");
     if (cliResults.flags.default) {
       return cliResults;
@@ -190,7 +198,7 @@ export const runCli = async (): Promise<CliResults> => {
                 { value: "privy", label: "Privy" },
                 { value: "rainbow", label: "Rainbow Kit" },
               ],
-              initialValue: "none",
+              initialValue: "privy",
             });
           },
           appRouter: () => {
@@ -240,26 +248,23 @@ export const runCli = async (): Promise<CliResults> => {
         },
         {
           onCancel() {
-            process.exit(1);
+            process.exit(0);
           },
         }
       );
-
       const packages: AvailablePackages[] = [];
       if (project.styling) packages.push("tailwind");
+      if (project.wallet === "privy") packages.push("privy");
+      if (project.wallet === "rainbow") packages.push("rainbow");
+      if (project.appRouter) cliResults.flags.appRouter = project.appRouter;
       if (project.linter === "eslint") packages.push("eslint");
+      if (project.git !== undefined) cliResults.flags.noGit = !project.git;
+      if (project.install !== undefined)
+        cliResults.flags.noInstall = !project.install;
+      if (project.importAlias)
+        cliResults.flags.importAlias = project.importAlias;
 
-      return {
-        appName: project.name ?? cliResults.appName,
-        packages,
-        flags: {
-          ...cliResults.flags,
-          appRouter: project.appRouter ?? cliResults.flags.appRouter,
-          noGit: !project.git || cliResults.flags.noGit,
-          noInstall: !project.install || cliResults.flags.noInstall,
-          importAlias: project.importAlias ?? cliResults.flags.importAlias,
-        },
-      };
+      return cliResults;
     } catch (err) {
       // If the user is not calling create-web3-kit from an interactive terminal, inquirer will throw an IsTTYError
       // If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default web3-kit
@@ -286,5 +291,6 @@ export const runCli = async (): Promise<CliResults> => {
       }
     }
   }
+
   return cliResults;
 };

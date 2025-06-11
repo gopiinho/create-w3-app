@@ -18,10 +18,10 @@
   "scripts": {
     "typecheck": "tsc",
     "build": "tsup",
-    "dev": "tsup --watch --config tsup.config.ts",
+    "dev": "tsup --watch",
     "start": "node dist/index.js",
+    "clean": "rm -rf dist node_modules",
     "lint": "eslint .",
-    "clean": "rm -rf dist",
     "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write"
   },
   "dependencies": {

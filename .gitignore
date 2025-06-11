@@ -1,4 +1,5 @@
 ### STANDARD GIT IGNORE FILE ###
+my-web3-kit/
 
 # DEPENDENCIES
 node_modules/
