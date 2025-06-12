@@ -19,10 +19,7 @@ export const rainbowInstaller: Installer = ({ projectDir }) => {
 
   const extrasDir = path.join(PKG_ROOT, "template/extras");
 
-  const providerSrc = path.join(
-    extrasDir,
-    "src/components/provider/rainbow-provider.tsx"
-  );
+  const providerSrc = path.join(extrasDir, "src/provider/rainbow-provider.tsx");
   const providerDest = path.join(
     projectDir,
     "src/components/provider/rainbow-provider.tsx"
