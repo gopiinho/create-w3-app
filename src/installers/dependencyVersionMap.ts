@@ -16,6 +16,7 @@ export const dependencyVersionMap = {
   "eslint-config-next": "^15.2.3",
   "eslint-plugin-drizzle": "^0.2.3",
   "typescript-eslint": "^8.27.0",
+  "@biomejs/biome": "^1.9.4",
 
   // Wallet packages
   "@privy-io/react-auth": "^2.4.14",

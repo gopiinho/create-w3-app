@@ -21,14 +21,16 @@ interface CliFlags {
   CI: boolean;
   /** @internal Used in CI. */
   tailwind: boolean;
+  /** @internal Used in CI */
+  privy: boolean;
+  /** @internal Used in CI */
+  rainbow: boolean;
   /** @internal Used in CI. */
   appRouter: boolean;
   /** @internal Used in CI */
   eslint: boolean;
-  /** Wallet authentication solution */
-  privy: boolean;
-  /** Wallet authentication solution */
-  rainbow: boolean;
+  /** @internal Used in CI */
+  biome: boolean;
 }
 
 interface CliResults {
@@ -46,11 +48,12 @@ const defaultOptions: CliResults = {
     default: false,
     CI: false,
     tailwind: false,
+    privy: false,
+    rainbow: false,
     importAlias: "~/",
     appRouter: false,
     eslint: false,
-    privy: false,
-    rainbow: false,
+    biome: false,
   },
 };
 
@@ -107,6 +110,11 @@ export const runCli = async (): Promise<CliResults> => {
       "Experimental: Boolean value if we should install eslint and prettier. Must be used in conjunction with `--CI`.",
       (value) => !!value && value !== "false"
     )
+    .option(
+      "--biome [boolean]",
+      "Experimental: Boolean value if we should install biome. Must be used in conjunction with `--CI`.",
+      (value) => !!value && value !== "false"
+    )
     /** END CI-FLAGS */
     .version(getVersion(), "-v, --version", "Display the version number")
     .addHelpText(
@@ -140,7 +148,11 @@ export const runCli = async (): Promise<CliResults> => {
     if (cliResults.flags.privy) cliResults.packages.push("privy");
     if (cliResults.flags.rainbow) cliResults.packages.push("rainbow");
     if (cliResults.flags.eslint) cliResults.packages.push("eslint");
-
+    if (cliResults.flags.biome) cliResults.packages.push("biome");
+    if (cliResults.flags.biome && cliResults.flags.eslint) {
+      logger.warn("Incompatible combination Biome + ESLint. Exiting.");
+      process.exit(0);
+    }
     return cliResults;
   }
 
@@ -212,8 +224,11 @@ export const runCli = async (): Promise<CliResults> => {
         linter: () => {
           return p.select({
             message:
-              "Would you like to use ESLint and Prettier for linting and formatting?",
-            options: [{ value: "eslint", label: "ESLint/Prettier" }],
+              "Would you like to use ESLint and Prettier or Biome for linting and formatting?",
+            options: [
+              { value: "eslint", label: "ESLint/Prettier" },
+              { value: "biome", label: "Biome" },
+            ],
             initialValue: "eslint",
           });
         },
@@ -258,6 +273,7 @@ export const runCli = async (): Promise<CliResults> => {
     if (project.wallet === "rainbow") packages.push("rainbow");
     if (project.appRouter) cliResults.flags.appRouter = project.appRouter;
     if (project.linter === "eslint") packages.push("eslint");
+    if (project.linter === "biome") packages.push("biome");
     if (project.git !== undefined) cliResults.flags.noGit = !project.git;
 
     return {

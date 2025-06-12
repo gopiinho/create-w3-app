@@ -2,6 +2,7 @@ import { privyInstaller } from "~/installers/privy.js";
 import { rainbowInstaller } from "~/installers/rainbow.js";
 import { tailwindInstaller } from "~/installers/tailwind.js";
 import { type PackageManager } from "~/utils/getUserPkgManager.js";
+import { biomeInstaller } from "./biome.js";
 import { envVariablesInstaller } from "./envVars.js";
 import { dynamicEslintInstaller } from "./eslint.js";
 
@@ -13,6 +14,7 @@ export const availablePackages = [
   "rainbow",
   "envVariables",
   "eslint",
+  "biome",
 ] as const;
 export type AvailablePackages = (typeof availablePackages)[number];
 
@@ -57,5 +59,9 @@ export const buildPkgInstallerMap = (
   eslint: {
     inUse: packages.includes("eslint"),
     installer: dynamicEslintInstaller,
+  },
+  biome: {
+    inUse: packages.includes("biome"),
+    installer: biomeInstaller,
   },
 });
