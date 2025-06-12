@@ -15,6 +15,7 @@ export default function Home() {
           <h1 className={styles.title}>
             Create <span className={styles.pinkSpan}>Web3</span> Kit
           </h1>
+          <span className={styles.description}>Privy with Pages router</span>
         </div>
       </main>
     </>

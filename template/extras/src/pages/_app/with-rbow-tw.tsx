@@ -1,22 +1,27 @@
-import { type AppType } from "next/app";
-import { Geist } from "next/font/google";
+import "../styles/global.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
-import { Providers } from "../components/provider/privy-provider";
+import { RainbowKitProvider, type Locale } from "@rainbow-me/rainbowkit";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import { WagmiProvider } from "wagmi";
 
-import "~/styles/globals.css";
+import { wagmiConfig } from "~/config/wagmi";
 
-const geist = Geist({
-  subsets: ["latin"],
-});
+const queryClient = new QueryClient();
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+function MyApp({ Component, pageProps }: AppProps) {
+  const { locale } = useRouter() as { locale: Locale };
   return (
-    <Providers>
-      <div className={geist.className}>
-        <Component {...pageProps} />
-      </div>
-    </Providers>
+    <WagmiProvider config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider locale={locale}>
+          <Component {...pageProps} />
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
-};
+}
 
 export default MyApp;

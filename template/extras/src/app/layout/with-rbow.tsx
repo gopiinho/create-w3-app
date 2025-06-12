@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
-import { Providers } from "../components/provider/privy-provider";
+import Providers from "../components/provider/rainbow-provider";
 
 export const metadata: Metadata = {
   title: "Create Web3 Kit",

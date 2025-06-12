@@ -1,7 +1,7 @@
 import { type AppType } from "next/dist/shared/lib/utils";
 import { Geist } from "next/font/google";
 
-import { Providers } from "../components/provider/privy-provider";
+import Providers from "../components/provider/privy-provider";
 
 import "~/styles/globals.css";
 
