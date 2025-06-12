@@ -1,7 +1,6 @@
 import path from "path";
 import fs from "fs-extra";
 
-import { PKG_ROOT } from "~/constants.js";
 import { type Installer } from "~/installers/index.js";
 
 export const envVariablesInstaller: Installer = ({ projectDir, packages }) => {
@@ -13,16 +12,6 @@ export const envVariablesInstaller: Installer = ({ projectDir, packages }) => {
     envFile = "with-privy.js";
   } else if (usingRainbow) {
     envFile = "with-rbow.js";
-  }
-
-  if (envFile !== "") {
-    const envSchemaSrc = path.join(
-      PKG_ROOT,
-      "template/extras/src/env",
-      envFile
-    );
-    const envSchemaDest = path.join(projectDir, "src/env.js");
-    fs.copyFileSync(envSchemaSrc, envSchemaDest);
   }
 
   const envDest = path.join(projectDir, ".env");
@@ -37,30 +26,26 @@ export const envVariablesInstaller: Installer = ({ projectDir, packages }) => {
 
 const getEnvContent = (usingPrivy: boolean, usingRainbow: boolean) => {
   let content = `
-# When adding additional environment variables, the schema in "/src/env.js"
-# should be updated accordingly.
 `
     .trim()
     .concat("\n\n");
-
   if (usingPrivy) {
     content += `# Privy Configuration
+NODE_ENV=""
 NEXT_PUBLIC_PRIVY_APP_ID=""
 
 `;
   }
-
   if (usingRainbow) {
     content += `# Rainbow Kit Configuration
+NODE_ENV=""
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=""
 
 `;
   }
-
   if (!usingPrivy && !usingRainbow) {
     content += `# Example:
-# SERVERVAR="foo"
-# NEXT_PUBLIC_CLIENTVAR="bar"
+# NODE_ENV=""
 `;
   }
 
@@ -77,8 +62,7 @@ const getExampleEnvContent = () => {
 # secrets in it. If you are cloning this repo, create a copy of this file named
 # ".env" and populate it with your secrets.
 
-# When adding additional environment variables, the schema in "/src/env.js"
-# should be updated accordingly.
+NODE_ENV=""
 
 # Privy Configuration (if using Privy)
 NEXT_PUBLIC_PRIVY_APP_ID=""
