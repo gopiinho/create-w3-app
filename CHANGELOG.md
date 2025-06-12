@@ -1,5 +1,13 @@
 # create-web3-kit
 
+## 0.2.0
+
+### Minor Changes
+
+- Adds Biome as linter and formatter option.
+- Updated templates to support biome.
+- Updated templates for both app route and pages route.
+
 ## 0.1.2
 
 ### Patch Changes
