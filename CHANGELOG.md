@@ -1,10 +1,16 @@
 # create-w3-app
 
+## 0.4.2
+
+### Patch Changes
+
+- Updates github actions, for github releases.
+
 ## 0.4.1
 
 ### Patch Changes
 
-- Updates github actions
+- Updates github actions.
 
 ## 0.4.0
 
