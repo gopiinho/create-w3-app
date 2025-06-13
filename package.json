@@ -1,16 +1,15 @@
 {
-  "name": "create-web3-kit",
+  "name": "create-w3-app",
   "version": "0.2.0",
-  "description": "Create ethereum dApps with web3-kit stack",
+  "description": "Create ethereum dApps with w3 stack",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gopiinho/create-web3-kit.git"
+    "url": "https://github.com/gopiinho/create-w3-app.git"
   },
   "keywords": [
-    "create-web3-kit",
-    "init.tips",
+    "create-w3-app",
     "next.js",
-    "web3-kit",
+    "w3-app",
     "tailwind",
     "privy",
     "rainbowkit",
@@ -25,7 +24,7 @@
   "type": "module",
   "exports": "./dist/index.js",
   "bin": {
-    "create-web3-kit": "./dist/index.js"
+    "create-w3-app": "./dist/index.js"
   },
   "scripts": {
     "typecheck": "tsc",

@@ -2,7 +2,7 @@ import * as p from "@clack/prompts";
 import chalk from "chalk";
 import { Command } from "commander";
 
-import { CREATE_WEB3_KIT, DEFAULT_APP_NAME } from "~/constants.js";
+import { CREATE_W3_APP, DEFAULT_APP_NAME } from "~/constants.js";
 import { type AvailablePackages } from "~/installers/index.js";
 import { getVersion } from "~/utils/getKitVersion.js";
 import { getUserPkgManager } from "~/utils/getUserPkgManager.js";
@@ -61,8 +61,8 @@ export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
 
   const program = new Command()
-    .name(CREATE_WEB3_KIT)
-    .description("A CLI for creating dApps with the web3-kit stack")
+    .name(CREATE_W3_APP)
+    .description("A CLI for creating dApps with the w3-app stack")
     .argument(
       "[dir]",
       "The name of the application, as well as the name of the directory to create"
@@ -79,7 +79,7 @@ export const runCli = async (): Promise<CliResults> => {
     )
     .option(
       "-y, --default",
-      "Bypass the CLI and use all default options to bootstrap a new web3-kit app",
+      "Bypass the CLI and use all default options to bootstrap a new w3-app app",
       false
     )
     /** START CI-FLAGS */
@@ -119,9 +119,9 @@ export const runCli = async (): Promise<CliResults> => {
     .version(getVersion(), "-v, --version", "Display the version number")
     .addHelpText(
       "afterAll",
-      `\n The web3-kit stack was inspired by ${chalk
+      `\n The w3-app stack was inspired by ${chalk
         .hex("#E8DCFF")
-        .bold("create-web3-kit")}
+        .bold("create-w3-app")}
       )} \n`
     )
     .parse(process.argv);
@@ -129,7 +129,7 @@ export const runCli = async (): Promise<CliResults> => {
   // FIXME: TEMPORARY WARNING WHEN USING YARN 3. SEE ISSUE #57
   if (process.env.npm_config_user_agent?.startsWith("yarn/3")) {
     logger.warn(`  WARNING: It looks like you are using Yarn 3. This is currently not supported,
-    and likely to result in a crash. Please run create-web3-kit with another
+    and likely to result in a crash. Please run create-w3-app with another
     package manager such as pnpm, npm, or Yarn Classic.`);
   }
 
@@ -288,14 +288,14 @@ export const runCli = async (): Promise<CliResults> => {
       },
     };
   } catch (err) {
-    // If the user is not calling create-web3-kit from an interactive terminal, inquirer will throw an IsTTYError
-    // If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default web3-kit
+    // If the user is not calling create-w3-app from an interactive terminal, inquirer will throw an IsTTYError
+    // If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default w3-app
     if (err instanceof IsTTYError) {
       logger.warn(`
-    ${CREATE_WEB3_KIT} needs an interactive terminal to provide options`);
+    ${CREATE_W3_APP} needs an interactive terminal to provide options`);
 
       const shouldContinue = await p.confirm({
-        message: `Continue scaffolding a default web3-kit app?`,
+        message: `Continue scaffolding a default w3-app app?`,
         initialValue: true,
       });
 
@@ -305,7 +305,7 @@ export const runCli = async (): Promise<CliResults> => {
       }
 
       logger.info(
-        `Bootstrapping a default web3-kit app in ./${cliResults.appName}`
+        `Bootstrapping a default w3-app app in ./${cliResults.appName}`
       );
     } else {
       throw err;

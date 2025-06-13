@@ -1,3 +1,3 @@
-# Web3-Kit
+# W3 App
 
-Scaffold from `create-web3-kit`
+Scaffold from [`create-w3-app`]("https://github.com/gopiinho/create-w3-app/")

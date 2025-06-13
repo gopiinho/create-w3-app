@@ -75,7 +75,7 @@ export const scaffoldProject = async ({
 
       if (overwriteDir === "clear") {
         spinner.info(
-          `Emptying ${chalk.cyan.bold(projectName)} and creating web3-kit..\n`
+          `Emptying ${chalk.cyan.bold(projectName)} and creating w3-app..\n`
         );
         fs.emptyDirSync(projectDir);
       }
