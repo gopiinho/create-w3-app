@@ -1,5 +1,11 @@
 # create-w3-app
 
+## 0.4.1
+
+### Patch Changes
+
+- Updates github actions
+
 ## 0.4.0
 
 ### Minor Changes

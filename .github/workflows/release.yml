@@ -38,6 +38,7 @@ jobs:
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
           echo "PACKAGE_NAME=$PACKAGE_NAME"
           echo "PACKAGE_VERSION=$PACKAGE_VERSION"
+          echo "version=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
 
           NPM_VERSIONS=$(npm view $PACKAGE_NAME versions --json)
           echo "Published versions: $NPM_VERSIONS"
@@ -56,3 +57,18 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_ENV: "production"
+
+      - name: Extract latest changelog entry
+        if: steps.check.outputs.publish_needed == 'true'
+        run: |
+          awk '/^## /{if (p) exit; p=1} p' CHANGELOG.md > LATEST_CHANGELOG.md
+
+      - name: Create GitHub Release
+        if: steps.check.outputs.publish_needed == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ steps.check.outputs.version }}"
+          name: "Release v${{ steps.check.outputs.version }}"
+          body_path: LATEST_CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
