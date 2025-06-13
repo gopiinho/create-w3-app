@@ -11,6 +11,7 @@
     "next.js",
     "w3-app",
     "tailwind",
+    "shadcn/ui",
     "privy",
     "rainbowkit",
     "wagmi",

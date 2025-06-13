@@ -19,6 +19,7 @@ The _"W3 Stack"_ is heavily inspired by [T3 Stack]("https://github.com/t3-oss/cr
 
 - [Next.js](https://nextjs.org)
 - [Tailwind CSS](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com/)
 - [TypeScript](https://typescriptlang.org)
 - [Privy](https://privy.io) or [Rainbow Kit](https://rainbowkit.com/)
 
