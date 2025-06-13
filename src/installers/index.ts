@@ -1,5 +1,6 @@
 import { privyInstaller } from "~/installers/privy.js";
 import { rainbowInstaller } from "~/installers/rainbow.js";
+import { shadcnInstaller } from "~/installers/shadcn.js";
 import { tailwindInstaller } from "~/installers/tailwind.js";
 import { type PackageManager } from "~/utils/getUserPkgManager.js";
 import { biomeInstaller } from "./biome.js";
@@ -10,6 +11,7 @@ import { dynamicEslintInstaller } from "./eslint.js";
 // Should increase extensibility in the future
 export const availablePackages = [
   "tailwind",
+  "shadcn",
   "privy",
   "rainbow",
   "envVariables",
@@ -43,6 +45,10 @@ export const buildPkgInstallerMap = (
   tailwind: {
     inUse: packages.includes("tailwind"),
     installer: tailwindInstaller,
+  },
+  shadcn: {
+    inUse: packages.includes("shadcn"),
+    installer: shadcnInstaller,
   },
   privy: {
     inUse: packages.includes("privy"),

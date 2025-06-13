@@ -22,6 +22,8 @@ interface CliFlags {
   /** @internal Used in CI. */
   tailwind: boolean;
   /** @internal Used in CI */
+  shadcn: boolean;
+  /** @internal Used in CI */
   privy: boolean;
   /** @internal Used in CI */
   rainbow: boolean;
@@ -48,6 +50,7 @@ const defaultOptions: CliResults = {
     default: false,
     CI: false,
     tailwind: false,
+    shadcn: false,
     privy: false,
     rainbow: false,
     importAlias: "~/",
@@ -92,6 +95,11 @@ export const runCli = async (): Promise<CliResults> => {
     .option(
       "--tailwind [boolean]",
       "Experimental: Boolean value if we should install Tailwind CSS. Must be used in conjunction with `--CI`.",
+      (value) => !!value && value !== "false"
+    )
+    .option(
+      "--shadcn [boolean]",
+      "Experimental: Boolean value if we should install shadcn/ui. Must be used in conjunction with `--CI`.",
       (value) => !!value && value !== "false"
     )
     /** @experimental - Used for CI E2E tests. Used in conjunction with `--CI` to skip prompting. */
@@ -145,12 +153,17 @@ export const runCli = async (): Promise<CliResults> => {
   if (cliResults.flags.CI) {
     cliResults.packages = [];
     if (cliResults.flags.tailwind) cliResults.packages.push("tailwind");
+    if (cliResults.flags.shadcn) cliResults.packages.push("shadcn");
     if (cliResults.flags.privy) cliResults.packages.push("privy");
     if (cliResults.flags.rainbow) cliResults.packages.push("rainbow");
     if (cliResults.flags.eslint) cliResults.packages.push("eslint");
     if (cliResults.flags.biome) cliResults.packages.push("biome");
     if (cliResults.flags.biome && cliResults.flags.eslint) {
       logger.warn("Incompatible combination Biome + ESLint. Exiting.");
+      process.exit(0);
+    }
+    if (!cliResults.flags.tailwind && cliResults.flags.shadcn) {
+      logger.warn("Cannot install Shadcn UI without Tailwind Css. Exiting.");
       process.exit(0);
     }
     return cliResults;
@@ -201,6 +214,12 @@ export const runCli = async (): Promise<CliResults> => {
         styling: () => {
           return p.confirm({
             message: "Will you be using Tailwind CSS for styling?",
+          });
+        },
+        shadcn: () => {
+          return p.confirm({
+            message: "Would you like to use Shadcn UI for component library?",
+            initialValue: true,
           });
         },
         wallet: () => {
@@ -269,6 +288,12 @@ export const runCli = async (): Promise<CliResults> => {
 
     const packages: AvailablePackages[] = [];
     if (project.styling) packages.push("tailwind");
+    if (project.shadcn) {
+      packages.push("shadcn");
+      if (!packages.includes("tailwind")) {
+        packages.push("tailwind");
+      }
+    }
     if (project.wallet === "privy") packages.push("privy");
     if (project.wallet === "rainbow") packages.push("rainbow");
     if (project.appRouter) cliResults.flags.appRouter = project.appRouter;

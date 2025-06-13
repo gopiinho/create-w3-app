@@ -8,6 +8,13 @@ export const dependencyVersionMap = {
   postcss: "^8.5.3",
   "@tailwindcss/postcss": "^4.0.15",
 
+  // Shadcn UI
+  "class-variance-authority": "^0.7.1",
+  clsx: "^2.1.1",
+  "lucide-react": "^0.515.0",
+  "tailwind-merge": "^3.3.1",
+  "tw-animate-css": "^1.3.4",
+
   // eslint / prettier
   prettier: "^3.5.3",
   "@eslint/eslintrc": "^3.3.1",
