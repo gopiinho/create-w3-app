@@ -2,18 +2,20 @@
 
 import { PrivyProvider } from "@privy-io/react-auth";
 
-const privyAppId = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
-
-if (!privyAppId) {
-  console.error("Missing Privy credentials");
+function getPrivyAppId(): string {
+  const privyAppId = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
+  if (!privyAppId) {
+    throw new Error("Missing Privy credentials");
+  }
+  return privyAppId;
 }
 
+const privyAppId = getPrivyAppId();
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <PrivyProvider
       appId={privyAppId}
       config={{
-        // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
           ethereum: {
             createOnLogin: "users-without-wallets",

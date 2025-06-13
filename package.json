@@ -1,6 +1,6 @@
 {
   "name": "create-w3-app",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Create ethereum dApps with w3 stack",
   "repository": {
     "type": "git",

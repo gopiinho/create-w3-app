@@ -1,5 +1,11 @@
 # create-w3-app
 
+## 0.4.3
+
+### Patch Changes
+
+- Fixes privy env variable undefined check.
+
 ## 0.4.2
 
 ### Patch Changes
