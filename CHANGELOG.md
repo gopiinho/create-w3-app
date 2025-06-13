@@ -1,4 +1,10 @@
-# create-web3-kit
+# create-w3-app
+
+## 0.3.0
+
+### Minor Changes
+
+- Renamed the package
 
 ## 0.2.0
 
@@ -24,4 +30,4 @@
 
 ### Minor Changes
 
-- Initial create-web3-kit release
+- Initial create-w3-app release
