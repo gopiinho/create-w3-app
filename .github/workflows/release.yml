@@ -5,11 +5,12 @@ on:
     branches:
       - main
       - ci/*
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -18,6 +19,11 @@ jobs:
         with:
           node-version: 20
           registry-url: "https://registry.npmjs.org/"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
 
       - name: Install dependencies
         run: pnpm install
