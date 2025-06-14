@@ -1,5 +1,11 @@
 # create-w3-app
 
+## 0.4.4
+
+### Patch Changes
+
+- Change app name on homepage.
+
 ## 0.4.3
 
 ### Patch Changes
