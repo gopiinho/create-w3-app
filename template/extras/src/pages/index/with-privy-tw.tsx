@@ -11,7 +11,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#add7ff] to-[#fffac2]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
           <h1 className="text-5xl font-extrabold tracking-tight text-black sm:text-[5rem]">
-            Create <span className="text-text-[#d0679d]">Web3</span> Kit
+            Create <span className="text-text-[#d0679d]">W3</span> App
           </h1>
           <span className="text-center text-black">
             Privy & Tailwind with Pages router

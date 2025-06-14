@@ -13,7 +13,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>
-            Create <span className={styles.pinkSpan}>Web3</span> Kit
+            Create <span className={styles.pinkSpan}>W3</span> App
           </h1>
           <span className={styles.description}>Privy with Pages router</span>
         </div>
