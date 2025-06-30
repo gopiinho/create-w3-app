@@ -7,7 +7,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Create <span className={styles.pinkSpan}>W3</span> App
         </h1>
-        <span className={styles.description}>Base with App router</span>
+        <span className={styles.description}>Next.js with App router</span>
       </div>
     </main>
   );

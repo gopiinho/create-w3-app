@@ -1,3 +1,4 @@
+import Connect from "@/components/connect";
 import Head from "next/head";
 
 import styles from "./index.module.css";
@@ -16,6 +17,7 @@ export default function Home() {
             Create <span className={styles.pinkSpan}>W3</span> App
           </h1>
           <span className={styles.description}>Privy with Pages router</span>
+          <Connect />
         </div>
       </main>
     </>

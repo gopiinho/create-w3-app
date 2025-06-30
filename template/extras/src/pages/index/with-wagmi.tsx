@@ -16,7 +16,7 @@ export default function Home() {
           <h1 className={styles.title}>
             Create <span className={styles.pinkSpan}>W3</span> App
           </h1>
-          <span className={styles.description}>Rainbow with Pages router</span>
+          <span className={styles.description}>Wagmi with Pages router</span>
           <Connect />
         </div>
       </main>

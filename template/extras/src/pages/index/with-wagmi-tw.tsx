@@ -1,6 +1,6 @@
 import Connect from "@/components/connect";
 
-export default function HomePage() {
+export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#add7ff] to-[#fffac2]">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
@@ -8,7 +8,7 @@ export default function HomePage() {
           Create <span className="text-text-[#d0679d]">W3</span> App
         </h1>
         <span className="text-center text-black">
-          Privy & Tailwind with App router
+          Wagmi & Tailwind with Pages router
         </span>
         <Connect />
       </div>

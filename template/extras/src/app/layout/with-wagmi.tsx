@@ -1,10 +1,9 @@
-import "@rainbow-me/rainbowkit/styles.css";
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
-import Providers from "../components/provider/rainbow-provider";
+import Providers from "../components/provider/wagmi-provider";
 
 export const metadata: Metadata = {
   title: "Create Web3 Kit",
@@ -14,15 +13,14 @@ export const metadata: Metadata = {
 
 const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
 });
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body>
+    <html lang="en">
+      <body className={geist.className}>
         <Providers>{children}</Providers>
       </body>
     </html>

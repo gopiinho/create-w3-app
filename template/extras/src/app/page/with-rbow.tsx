@@ -1,3 +1,5 @@
+import Connect from "@/components/connect";
+
 import styles from "./index.module.css";
 
 export default function Home() {
@@ -8,6 +10,7 @@ export default function Home() {
           Create <span className={styles.pinkSpan}>W3</span> App
         </h1>
         <span className={styles.description}>With rainbow with App router</span>
+        <Connect />
       </div>
     </main>
   );

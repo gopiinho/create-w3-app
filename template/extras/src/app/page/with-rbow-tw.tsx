@@ -1,3 +1,5 @@
+import Connect from "@/components/connect";
+
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#add7ff] to-[#fffac2]">
@@ -8,6 +10,7 @@ export default function HomePage() {
         <span className="text-center text-black">
           Rainbow & Tailwind with App router
         </span>
+        <Connect />
       </div>
     </main>
   );

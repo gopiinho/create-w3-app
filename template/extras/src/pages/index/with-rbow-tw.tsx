@@ -1,3 +1,4 @@
+import Connect from "@/components/connect";
 import Head from "next/head";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
           <span className="text-center text-black">
             Rainbow & Tailwind with Pages router
           </span>
+          <Connect />
         </div>
       </main>
     </>

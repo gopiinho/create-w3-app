@@ -8,7 +8,7 @@ export default function HomePage() {
           Create <span className="text-text-[#d0679d]">W3</span> App
         </h1>
         <span className="text-center text-black">
-          Privy & Tailwind with App router
+          Wagmi & Tailwind with App router
         </span>
         <Connect />
       </div>

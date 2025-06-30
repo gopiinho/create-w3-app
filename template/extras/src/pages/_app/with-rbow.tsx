@@ -1,4 +1,4 @@
-import "../styles/global.css";
+import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 
 import { RainbowKitProvider, type Locale } from "@rainbow-me/rainbowkit";

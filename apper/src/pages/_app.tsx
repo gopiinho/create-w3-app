@@ -7,7 +7,7 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { WagmiProvider } from "wagmi";
 
-import { wagmiConfig } from "~/config/wagmi";
+import { wagmiConfig } from "@/config/wagmi";
 
 const queryClient = new QueryClient();
 

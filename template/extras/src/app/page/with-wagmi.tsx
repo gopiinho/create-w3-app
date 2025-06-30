@@ -9,7 +9,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Create <span className={styles.pinkSpan}>W3</span> App
         </h1>
-        <span className={styles.description}>Privy with App router</span>
+        <span className={styles.description}>Wagmi with App router</span>
         <Connect />
       </div>
     </main>
