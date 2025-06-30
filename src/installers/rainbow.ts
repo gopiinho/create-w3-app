@@ -25,7 +25,7 @@ export const rainbowInstaller: Installer = ({ projectDir }) => {
     "src/components/provider/rainbow-provider.tsx"
   );
 
-  const wagmiConfigSrc = path.join(extrasDir, "config/wagmi.ts");
+  const wagmiConfigSrc = path.join(extrasDir, "config/wagmi-rainbow.ts");
   const wagmiConfigDest = path.join(projectDir, "src/config/wagmi.ts");
 
   fs.copySync(providerSrc, providerDest);

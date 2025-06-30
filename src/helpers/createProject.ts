@@ -6,6 +6,8 @@ import { installPackages } from "~/helpers/installPackages.js";
 import { scaffoldProject } from "~/helpers/scaffoldProject.js";
 import {
   selectAppFile,
+  selectConnectComponentApp,
+  selectConnectComponentPage,
   selectIndexFile,
   selectLayoutFile,
   selectPageFile,
@@ -63,9 +65,11 @@ export const createProject = async ({
 
     selectLayoutFile({ projectDir, packages });
     selectPageFile({ projectDir, packages });
+    selectConnectComponentApp({ projectDir, packages });
   } else {
     selectAppFile({ projectDir, packages });
     selectIndexFile({ projectDir, packages });
+    selectConnectComponentPage({ projectDir, packages });
   }
 
   // If no tailwind, select use css modules

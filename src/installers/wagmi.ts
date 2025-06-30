@@ -7,6 +7,7 @@ import { addPackageDependency } from "~/utils/addPackageDependency.js";
 
 export const wagmiInstaller: Installer = ({ projectDir, packages }) => {
   const usingPrivy = packages?.privy?.inUse === true;
+  const usingRainbow = packages?.rainbow?.inUse === true;
 
   if (usingPrivy) {
     addPackageDependency({
@@ -29,10 +30,25 @@ export const wagmiInstaller: Installer = ({ projectDir, packages }) => {
     : path.join(extrasDir, "config/wagmi.ts");
   const wagmiConfigDest = path.join(projectDir, "src/config/wagmi.ts");
 
+  const providerSrc = path.join(extrasDir, "src/provider/wagmi-provider.tsx");
+  const providerDest = path.join(
+    projectDir,
+    "src/components/provider/wagmi-provider.tsx"
+  );
+  fs.copySync(providerSrc, providerDest);
+
   fs.copySync(wagmiConfigSrc, wagmiConfigDest);
   if (usingPrivy) {
     const wagmiConfigSrc = path.join(extrasDir, "config/wagmi-privy.ts");
     const wagmiConfigDest = path.join(projectDir, "src/config/wagmi.ts");
     fs.copySync(wagmiConfigSrc, wagmiConfigDest);
+  }
+  if (!usingRainbow && !usingPrivy) {
+    const providerSrc = path.join(extrasDir, "src/provider/wagmi-provider.tsx");
+    const providerDest = path.join(
+      projectDir,
+      "src/components/provider/wagmi-provider.tsx"
+    );
+    fs.copySync(providerSrc, providerDest);
   }
 };

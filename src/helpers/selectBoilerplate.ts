@@ -17,6 +17,7 @@ export const selectAppFile = ({
   const usingTw = packages.tailwind.inUse;
   const usingPrivy = packages.privy.inUse;
   const usingRainbow = packages.rainbow.inUse;
+  const usingWagmi = packages.wagmi.inUse;
 
   let appFile = "base.tsx";
   if (usingPrivy && usingTw) {
@@ -29,6 +30,10 @@ export const selectAppFile = ({
     appFile = "with-rbow.tsx";
   } else if (usingTw && !usingPrivy && !usingRainbow) {
     appFile = "with-tw.tsx";
+  } else if (usingWagmi && !usingPrivy && !usingRainbow) {
+    appFile = "with-wagmi.tsx";
+  } else if (usingWagmi && !usingPrivy && !usingRainbow && !usingTw) {
+    appFile = "with-wagmi.tsx";
   }
 
   const appSrc = path.join(appFileDir, appFile);
@@ -46,6 +51,7 @@ export const selectLayoutFile = ({
   const usingTw = packages.tailwind.inUse;
   const usingPrivy = packages.privy.inUse;
   const usingRainbow = packages.rainbow.inUse;
+  const usingWagmi = packages.wagmi.inUse;
 
   let layoutFile = "base.tsx";
   if (usingPrivy && usingTw) {
@@ -58,6 +64,10 @@ export const selectLayoutFile = ({
     layoutFile = "with-rbow.tsx";
   } else if (usingTw && !usingPrivy && !usingRainbow) {
     layoutFile = "with-tw.tsx";
+  } else if (usingWagmi && !usingPrivy && !usingRainbow) {
+    layoutFile = "with-wagmi.tsx";
+  } else if (usingWagmi && !usingPrivy && !usingRainbow && !usingTw) {
+    layoutFile = "with-wagmi.tsx";
   }
 
   const appSrc = path.join(layoutFileDir, layoutFile);
@@ -75,6 +85,7 @@ export const selectIndexFile = ({
   const usingTw = packages.tailwind.inUse;
   const usingPrivy = packages.privy.inUse;
   const usingRainbow = packages.rainbow.inUse;
+  const usingWagmi = packages.wagmi.inUse;
 
   let indexFile = "base.tsx";
   if (usingPrivy && usingTw) {
@@ -87,6 +98,10 @@ export const selectIndexFile = ({
     indexFile = "with-rbow.tsx";
   } else if (usingTw && !usingPrivy && !usingRainbow) {
     indexFile = "with-tw.tsx";
+  } else if (usingWagmi && usingTw && !usingPrivy && !usingRainbow) {
+    indexFile = "with-wagmi-tw.tsx";
+  } else if (usingWagmi && !usingPrivy && !usingRainbow && !usingTw) {
+    indexFile = "with-wagmi.tsx";
   }
 
   const indexSrc = path.join(indexFileDir, indexFile);
@@ -104,21 +119,94 @@ export const selectPageFile = ({
   const usingTw = packages.tailwind.inUse;
   const usingPrivy = packages.privy.inUse;
   const usingRainbow = packages.rainbow.inUse;
+  const usingWagmi = packages.wagmi.inUse;
 
-  let indexFile = "base.tsx";
+  let pageFile = "base.tsx";
   if (usingPrivy && usingTw) {
-    indexFile = "with-privy-tw.tsx";
+    pageFile = "with-privy-tw.tsx";
   } else if (usingPrivy && !usingTw) {
-    indexFile = "with-privy.tsx";
+    pageFile = "with-privy.tsx";
   } else if (usingRainbow && usingTw) {
-    indexFile = "with-rbow-tw.tsx";
+    pageFile = "with-rbow-tw.tsx";
   } else if (usingRainbow && !usingTw) {
-    indexFile = "with-rbow.tsx";
+    pageFile = "with-rbow.tsx";
   } else if (usingTw && !usingPrivy && !usingRainbow) {
-    indexFile = "with-tw.tsx";
+    pageFile = "with-tw.tsx";
+  } else if (usingWagmi && usingTw && !usingPrivy && !usingRainbow) {
+    pageFile = "with-wagmi-tw.tsx";
+  } else if (usingWagmi && !usingPrivy && !usingRainbow && !usingTw) {
+    pageFile = "with-wagmi.tsx";
   }
 
-  const indexSrc = path.join(indexFileDir, indexFile);
+  const indexSrc = path.join(indexFileDir, pageFile);
   const indexDest = path.join(projectDir, "src/app/page.tsx");
+  fs.copySync(indexSrc, indexDest);
+};
+
+export const selectConnectComponentApp = ({
+  projectDir,
+  packages,
+}: SelectBoilerplateProps) => {
+  const indexFileDir = path.join(
+    PKG_ROOT,
+    "template/extras/src/app/components"
+  );
+
+  const usingTw = packages.tailwind.inUse;
+  const usingPrivy = packages.privy.inUse;
+  const usingRainbow = packages.rainbow.inUse;
+  const usingWagmi = packages.wagmi.inUse;
+
+  let componentFile = "base.tsx";
+  if (usingPrivy && usingTw) {
+    componentFile = "with-privy-tw.tsx";
+  } else if (usingPrivy && usingTw && usingWagmi) {
+    componentFile = "with-privy-wagmi-tw.tsx";
+  } else if (usingPrivy && usingWagmi) {
+    componentFile = "with-privy-wagmi.tsx";
+  } else if (usingRainbow && usingTw) {
+    componentFile = "with-rbow-tw.tsx";
+  } else if (usingRainbow && !usingTw) {
+    componentFile = "with-rbow.tsx";
+  } else if (usingTw && !usingPrivy && !usingRainbow) {
+    componentFile = "with-tw.tsx";
+  }
+
+  const indexSrc = path.join(indexFileDir, componentFile);
+  const indexDest = path.join(projectDir, "src/components/connect.tsx");
+  fs.copySync(indexSrc, indexDest);
+};
+
+export const selectConnectComponentPage = ({
+  projectDir,
+  packages,
+}: SelectBoilerplateProps) => {
+  const indexFileDir = path.join(
+    PKG_ROOT,
+    "template/extras/src/pages/components"
+  );
+
+  const usingTw = packages.tailwind.inUse;
+  const usingPrivy = packages.privy.inUse;
+  const usingRainbow = packages.rainbow.inUse;
+  const usingWagmi = packages.wagmi.inUse;
+
+  let componentFile = "base.tsx";
+  if (usingPrivy && usingTw) {
+    componentFile = "with-privy-tw.tsx";
+  } else if (usingPrivy && usingTw && usingWagmi) {
+    componentFile = "with-privy-wagmi-tw.tsx";
+  } else if (usingPrivy && usingWagmi) {
+    componentFile = "with-privy-wagmi.tsx";
+  } else if (usingRainbow && usingTw) {
+    componentFile = "with-rbow-tw.tsx";
+  } else if (usingRainbow && !usingTw) {
+    componentFile = "with-rbow.tsx";
+  } else if (usingTw && !usingPrivy && !usingRainbow) {
+    componentFile = "with-tw.tsx";
+  }
+
+  const indexSrc = path.join(indexFileDir, componentFile);
+  const indexDest = path.join(projectDir, "src/components/connect.tsx");
   fs.copySync(indexSrc, indexDest);
 };
