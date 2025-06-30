@@ -21,6 +21,7 @@ The _"W3 Stack"_ is heavily inspired by [T3 Stack]("https://github.com/t3-oss/cr
 - [Tailwind CSS](https://tailwindcss.com)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [TypeScript](https://typescriptlang.org)
+- [Wagmi](https://wagmi.sh)
 - [Privy](https://privy.io) or [Rainbow Kit](https://rainbowkit.com/)
 
 <h2 id="getting-started">Getting Started</h2>

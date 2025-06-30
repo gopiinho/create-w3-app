@@ -1,5 +1,12 @@
 # create-w3-app
 
+## 0.5.0
+
+### Minor Changes
+
+- Adds Wagmi as optional dependency
+- Added connect button on homepage for each wallet option.
+
 ## 0.4.4
 
 ### Patch Changes
