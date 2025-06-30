@@ -238,7 +238,7 @@ export const runCli = async (): Promise<CliResults> => {
           if (results.wallet === "privy" || results.wallet === "none") {
             return p.confirm({
               message:
-                "Would you like to install Viem, Wagmi and @tanstack/react-query for contract interactions?",
+                "Would you like to install Wagmi (Viem + Tanstack React Query) for contract interactions?",
               initialValue: true,
             });
           }
