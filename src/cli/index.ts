@@ -53,7 +53,7 @@ const defaultOptions: CliResults = {
     shadcn: false,
     privy: false,
     rainbow: false,
-    importAlias: "~/",
+    importAlias: "@/",
     appRouter: false,
     eslint: false,
     biome: false,
@@ -234,6 +234,15 @@ export const runCli = async (): Promise<CliResults> => {
             initialValue: "privy",
           });
         },
+        viem: ({ results }) => {
+          if (results.wallet === "privy" || results.wallet === "none") {
+            return p.confirm({
+              message:
+                "Would you like to install Viem, Wagmi and @tanstack/react-query for contract interactions?",
+              initialValue: true,
+            });
+          }
+        },
         appRouter: () => {
           return p.confirm({
             message: "Would you like to use Next.js App Router?",
@@ -296,6 +305,7 @@ export const runCli = async (): Promise<CliResults> => {
     }
     if (project.wallet === "privy") packages.push("privy");
     if (project.wallet === "rainbow") packages.push("rainbow");
+    if (project.viem) packages.push("wagmi");
     if (project.appRouter) cliResults.flags.appRouter = project.appRouter;
     if (project.linter === "eslint") packages.push("eslint");
     if (project.linter === "biome") packages.push("biome");

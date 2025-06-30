@@ -27,6 +27,7 @@ export const dependencyVersionMap = {
 
   // Wallet packages
   "@privy-io/react-auth": "^2.4.14",
+  "@privy-io/wagmi": "^1.0.5",
   "@rainbow-me/rainbowkit": "^2.2.6",
   "@tanstack/react-query": "^5.69.0",
   wagmi: "^2.15.6",

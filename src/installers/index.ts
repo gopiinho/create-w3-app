@@ -2,6 +2,7 @@ import { privyInstaller } from "~/installers/privy.js";
 import { rainbowInstaller } from "~/installers/rainbow.js";
 import { shadcnInstaller } from "~/installers/shadcn.js";
 import { tailwindInstaller } from "~/installers/tailwind.js";
+import { wagmiInstaller } from "~/installers/wagmi.js";
 import { type PackageManager } from "~/utils/getUserPkgManager.js";
 import { biomeInstaller } from "./biome.js";
 import { envVariablesInstaller } from "./envVars.js";
@@ -14,6 +15,7 @@ export const availablePackages = [
   "shadcn",
   "privy",
   "rainbow",
+  "wagmi",
   "envVariables",
   "eslint",
   "biome",
@@ -57,6 +59,10 @@ export const buildPkgInstallerMap = (
   rainbow: {
     inUse: packages.includes("rainbow"),
     installer: rainbowInstaller,
+  },
+  wagmi: {
+    inUse: packages.includes("wagmi"),
+    installer: wagmiInstaller,
   },
   envVariables: {
     inUse: true,
