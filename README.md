@@ -13,6 +13,12 @@
   Interactive CLI to start a full-stack, Ethereum Next.js app.
 </p>
 
+<a href="https://www.youtube.com/watch?v=CZv-5CdINIo" target="_blank">
+  <p align="center">
+    <img src="https://raw.githubusercontent.com/gopiinho/create-w3-app/main/logo/thumbnail.png" alt="Video thumbnail of Theo with an indecipherable expression on his face" width="320" />
+  </p>
+</a>
+
 <h2>The W3 Stack</h2>
 
 The _"W3 Stack"_ is heavily inspired by [T3 Stack]("https://github.com/t3-oss/create-t3-app"), is a ethereum dApp development stack focused on quickly shipping Web3 apps. It consists of:
